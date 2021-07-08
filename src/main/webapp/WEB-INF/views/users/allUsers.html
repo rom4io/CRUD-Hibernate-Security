@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+</head>
+<body>
+
+<h2>All users:</h2>
+
+<br>
+
+<table>
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>email</th>
+        <th>age</th>
+        <th>operations</th>
+    </tr>
+    <div th:each="user:${users}">
+        <tr>
+            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getId()}">users</a></td>
+            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">users</a></td>
+            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getSurname()}">users</a></td>
+            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
+            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getAge()}">users</a></td>
+            <td>
+            <input type="button" value="Update" class="btn" th:href="@{/users/{id}/edit(id=${user.getId()})}" />
+                <input type="button" value="Кнопка" onClick='location.href="@{/users/{id}/edit(id=${user.getId()})}"'>
+                <button
+                        th:href="@{/users/{id}/edit(id=${user.getId()})}"
+                        >GO</button>
+                <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                    <input type="submit" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+    </div>
+</table>
+
+<br>
+
+<input type="button" value="Create new user" onClick='location.href="/users/new"'>
+
+<form th:method="Create" th:action="@{/users/new}">
+    <input type="submit" value="Create">
+</form>
+
+
+
+</body>
+</html>
