@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>All Users</title>
@@ -10,7 +10,7 @@
 
 <br>
 
-<table>
+<table border="1" style="width:300px">
     <tr>
         <th>id</th>
         <th>Name</th>
@@ -27,14 +27,13 @@
             <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
             <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getAge()}">users</a></td>
             <td>
-            <input type="button" value="Update" class="btn" th:href="@{/users/{id}/edit(id=${user.getId()})}" />
-                <input type="button" value="Кнопка" onClick='location.href="@{/users/{id}/edit(id=${user.getId()})}"'>
-                <button
-                        th:href="@{/users/{id}/edit(id=${user.getId()})}"
-                        >GO</button>
+
+
+                <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
                 <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
                     <input type="submit" value="Delete"/>
                 </form>
+
             </td>
         </tr>
     </div>
@@ -43,12 +42,6 @@
 <br>
 
 <input type="button" value="Create new user" onClick='location.href="/users/new"'>
-
-<form th:method="Create" th:action="@{/users/new}">
-    <input type="submit" value="Create">
-</form>
-
-
 
 </body>
 </html>
