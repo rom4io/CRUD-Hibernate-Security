@@ -2,7 +2,6 @@ package crud.Service;
 
 import crud.dao.UserDAO;
 import crud.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,8 +10,11 @@ import java.util.List;
 @Service
 public class UserService {
 
-    @Autowired
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+
+    public UserService(UserDAO userDAO) {
+        this.userDAO = userDAO;
+    }
 
     @Transactional
     public List<User> allUsers(){

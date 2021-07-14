@@ -1,6 +1,10 @@
 package crud.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -11,15 +15,23 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
+    @Size(min = 3,max = 20,message = "name should be between 3 and 20")
+    @NotEmpty(message = "name should not be empty")
     @Column(name = "user_name")
     private String name;
 
+    @Size(min = 3, max = 30, message = "surname should be between 3 and 30")
+    @NotEmpty(message = "surname should not be empty")
     @Column(name = "user_surname")
     private String surname;
 
+    @Email(message = "Email should be valid")
+    @NotEmpty(message = "email should not be empty")
     @Column(name = "user_email")
     private String email;
 
+
+    @Min(value = 0, message = "Age should be greater then 0")
     @Column(name = "user_age")
     private Integer age;
 

@@ -2,64 +2,23 @@ package crud.controller;
 
 import crud.Service.UserService;
 import crud.model.User;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 
 @Controller
 public class UserController {
 
-    @Autowired
-    UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
-//    @GetMapping(value = "/users")
-//    public String showAllUsers(Model model) {
-//        model.addAttribute("users" , userService.allUsers());
-//        return "userv/users";
-//    }
-//
-//    @GetMapping(value = "/createUser")
-//    public String addUserForm(@ModelAttribute("user") User user) {
-//        return "userv/createUser";
-//    }
-//
-//    @PostMapping(value = "/createUser")
-//    public String createUser(@ModelAttribute("user") User user) {
-//        userService.save(user);
-//        return "redirect:/users";
-//    }
-//
-//
-//    @GetMapping(value = "/deleteUser/{id}")
-//    public String deleteUser(@PathVariable("id") Long id) {
-//        userService.delete(id);
-//        return "redirect:/users";
-//    }
-//
-//    @GetMapping(value = "/getUserById/{id}")
-//    public String getUserById(@PathVariable("id") Long id, Model model) {
-//        model.addAttribute("userById" , userService.userByID(id));
-//        return "userv/getUserById";
-//    }
-//
-//    @GetMapping(value = "/editUser/{id}")
-//    public String updateUserForm(@PathVariable("id") Long id, Model model) {
-//        User user = userService.userByID(id);
-//        model.addAttribute("updateUser" , user);
-//        return "userv/editUser";
-//    }
-//
-//    @PostMapping(value = "/editUser")
-//    public String updateUser(@ModelAttribute("user") User user) {
-//        userService.update(user);
-//        return "redirect:/users";
-//    }
 
     @RequestMapping(value = "/users")
     public String showAllUsers(Model model) {
@@ -84,7 +43,10 @@ public class UserController {
 
 
     @PostMapping(value = "/users/new")
-    public String create(@ModelAttribute("user") User user) {
+    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()){
+            return "/users/new";
+        }
         userService.save(user);
         return "redirect:/users";
     }
@@ -96,7 +58,11 @@ public class UserController {
     }
 
     @PatchMapping(value = "/users/{id}")
-    public String update(@ModelAttribute("user") User user) {
+    public String update(@ModelAttribute("user")@Valid User user, BindingResult bindingResult,
+                         @PathVariable("id") Long id) {
+        if (bindingResult.hasErrors()){
+            return "/users/edit";
+        }
         userService.update(user);
         return "redirect:/users";
     }

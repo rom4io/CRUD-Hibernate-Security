@@ -30,24 +30,6 @@
 
     <dependency>
       <groupId>org.springframework</groupId>
-      <artifactId>spring-core</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-web</artifactId>
-      <version>${spring.version}</version>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
     </dependency>
@@ -64,11 +46,7 @@
       <version>4.0.1</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-tx</artifactId>
-      <version>5.3.8</version>
-    </dependency>
+
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
@@ -90,10 +68,17 @@
       <artifactId>spring-data-jpa</artifactId>
       <version>2.5.1</version>
     </dependency>
+    <dependency>
+      <groupId>org.hibernate.validator</groupId>
+      <artifactId>hibernate-validator</artifactId>
+      <version>6.2.0.Final</version>
+    </dependency>
+
+
   </dependencies>
 
   <build>
-    <finalName>CRUD-Hiber</finalName>
+    <finalName>CRUD-Hibernate</finalName>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
@@ -174,7 +159,7 @@
 
 <!--    <dependency>-->
 <!--      <groupId>org.springframework</groupId>-->
-<!--      <artifactId>spring-web</artifactId>-->
+<!--      <artifactId>spring-crud</artifactId>-->
 <!--      <version>${spring.version}</version>-->
 <!--    </dependency>-->
 
