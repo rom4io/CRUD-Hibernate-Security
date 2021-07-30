@@ -1,5 +1,6 @@
 package crud.config;
 
+import crud.model.Role;
 import crud.model.User;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -50,7 +51,7 @@ public class HibernateConfig {
         props.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
 
         localSessionFactoryBean.setHibernateProperties(props);
-        localSessionFactoryBean.setAnnotatedClasses(User.class);
+        localSessionFactoryBean.setAnnotatedClasses(User.class, Role.class);
         return localSessionFactoryBean;
     }
 

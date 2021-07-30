@@ -14,11 +14,12 @@ import java.util.List;
 
 
 @Controller
-public class UserController {
+@RequestMapping("/admin")
+public class AdminController {
 
     private final UserService userService;
 
-    public UserController(UserService userService) {
+    public AdminController(UserService userService) {
         this.userService = userService;
     }
 
@@ -26,29 +27,30 @@ public class UserController {
     @RequestMapping(value = "/users")
     public String showAllUsers(Model model) {
         model.addAttribute("users" , userService.allUsers());
-        return "users/allUsers";
+        return "admin/allUsers";
     }
 
 
     @RequestMapping(value = "/users/{id}")
     public String userById(@PathVariable("id") Long id, Model model){
         model.addAttribute("user", userService.userByID(id));
-        return "users/show";
+        return "admin/show";
     }
 
     @GetMapping(value = "/users/new")
     public String newUser(Model model){
         User user = new User();
         model.addAttribute("user", user);
+        //user.setRoleSet(2L);
 
-        return "users/new";
+        return "admin/new";
     }
 
 
     @PostMapping(value = "/users/new")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
-            return "/users/new";
+            return "/admin/new";
         }
         userService.save(user);
         return "redirect:/users";
@@ -57,14 +59,14 @@ public class UserController {
     @GetMapping(value = "/users/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
         model.addAttribute("user", userService.userByID(id));
-        return "users/edit";
+        return "admin/edit";
     }
 
     @PatchMapping(value = "/users/{id}")
     public String update(@ModelAttribute("user")@Valid User user, BindingResult bindingResult,
                          @PathVariable("id") Long id) {
         if (bindingResult.hasErrors()){
-            return "/users/edit";
+            return "/admin/edit";
         }
         userService.update(user);
         return "redirect:/users";

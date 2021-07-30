@@ -29,6 +29,8 @@ public class UserService {
         return userDAO.userById(id);
     }
 
+    public User userByEmail (String email){ return userDAO.userByEmail(email);}
+
     @Transactional
     public void save (User user){ userDAO.save(user);}
 
@@ -37,4 +39,5 @@ public class UserService {
 
     @Transactional
     public void delete (Long id) {userDAO.delete(id);}
+
 }

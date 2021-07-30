@@ -27,6 +27,14 @@ public class UserDAO {
         return q.getResultList().stream().findAny().orElse(null);
     }
 
+    public User userByEmail(String email){
+        TypedQuery<User> q = entityManager.createQuery(
+                "select u from User u where u.email = :email", User.class
+        );
+        q.setParameter("email", email);
+        return q.getResultList().stream().findAny().orElse(null);
+    }
+
     public void delete(Long id){
         entityManager.remove(userById(id));
     }
