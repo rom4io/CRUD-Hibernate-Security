@@ -1,64 +1,74 @@
 package crud.controller;
 
-import crud.Service.UserService;
+import crud.Service.AdminService;
+import crud.Service.RoleService;
+import crud.dao.RoleDAO;
+import crud.dao.UserDAO;
 import crud.model.User;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final UserService userService;
+    @Autowired
+    private RoleDAO roleDAO;
+    @Autowired
+    private RoleService roleService;
 
-    public AdminController(UserService userService) {
-        this.userService = userService;
+    private final AdminService adminService;
+
+    public AdminController(AdminService adminService) {
+        this.adminService = adminService;
     }
 
 
     @RequestMapping(value = "/users")
     public String showAllUsers(Model model) {
-        model.addAttribute("users" , userService.allUsers());
+        model.addAttribute("users" , adminService.allUsers());
         return "admin/allUsers";
     }
 
 
     @RequestMapping(value = "/users/{id}")
     public String userById(@PathVariable("id") Long id, Model model){
-        model.addAttribute("user", userService.userByID(id));
+        model.addAttribute("user", adminService.userByID(id));
         return "admin/show";
     }
 
-    @GetMapping(value = "/users/new")
+    @GetMapping(value = "/new")
     public String newUser(Model model){
         User user = new User();
         model.addAttribute("user", user);
+        user.setRoleSet(roleService.getRoleUser());
         //user.setRoleSet(2L);
 
         return "admin/new";
     }
 
 
-    @PostMapping(value = "/users/new")
+    @PostMapping(value = "/new")
     public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return "/admin/new";
         }
-        userService.save(user);
-        return "redirect:/users";
+        user.setRoleSet(Collections.singleton(roleDAO.getRole(2L)));
+        user.setRoleSet(roleService.getRoleUser());
+        adminService.save(user);
+        return "redirect:/admin/users";
     }
 
     @GetMapping(value = "/users/{id}/edit")
     public String edit(Model model, @PathVariable("id") Long id) {
-        model.addAttribute("user", userService.userByID(id));
+        model.addAttribute("user", adminService.userByID(id));
         return "admin/edit";
     }
 
@@ -68,14 +78,15 @@ public class AdminController {
         if (bindingResult.hasErrors()){
             return "/admin/edit";
         }
-        userService.update(user);
-        return "redirect:/users";
+        user.setPassword(user.getPassword());
+        adminService.update(user);
+        return "redirect:/admin/users";
     }
 
     @DeleteMapping(value = "/users/{id}")
     public String delete (@PathVariable("id") Long id){
-        userService.delete(id);
-        return "redirect:/users";
+        adminService.delete(id);
+        return "redirect:/admin/users";
     }
 
 
