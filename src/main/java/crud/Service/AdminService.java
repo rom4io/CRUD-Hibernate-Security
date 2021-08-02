@@ -9,13 +9,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-public class UserService {
+public class AdminService {
 
 
     private final UserDAO userDAO;
 
     @Autowired
-    public UserService(UserDAO userDAO) {
+    public AdminService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -29,6 +29,7 @@ public class UserService {
         return userDAO.userById(id);
     }
 
+    @Transactional
     public User userByEmail (String email){ return userDAO.userByEmail(email);}
 
     @Transactional

@@ -21,16 +21,16 @@
     </tr>
     <div th:each="user:${users}">
         <tr>
-            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getId()}">users</a></td>
-            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">users</a></td>
-            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getSurname()}">users</a></td>
-            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
-            <td><a th:href="@{/users/{id}(id=${user.getId()})}" th:text="${user.getAge()}">users</a></td>
+            <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}" th:text="${user.getId()}">users</a></td>
+            <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}" th:text="${user.getName()}">users</a></td>
+            <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}" th:text="${user.getSurname()}">users</a></td>
+            <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}" th:text="${user.getEmail()}">users</a></td>
+            <td><a th:href="@{/admin/users/{id}(id=${user.getId()})}" th:text="${user.getAge()}">users</a></td>
             <td>
 
 
-                <a th:href="@{/users/{id}/edit(id=${user.getId()})}">Edit</a>
-                <form th:method="DELETE" th:action="@{/users/{id}(id=${user.getId()})}">
+                <a th:href="@{/admin/users/{id}/edit(id=${user.getId()})}">Edit</a>
+                <form th:method="DELETE" th:action="@{/admin/users/{id}(id=${user.getId()})}">
                     <input type="submit" value="Delete"/>
                 </form>
 
@@ -41,7 +41,11 @@
 
 <br>
 
-<input type="button" value="Create new user" onClick='location.href="/users/new"'>
+<input type="button" value="Create new user" onClick='location.href="/admin/new"'>
+
+<br>
+
+<input type="button" value="Logout" onClick='location.href="/logout"'>
 
 </body>
 </html>

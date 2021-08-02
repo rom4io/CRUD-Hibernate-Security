@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User info</title>
+</head>
+<body>
+
+<h1>Hello, <th th:text="${currentUser.getName()}"> !!!</h1>
+<h2>Your info:</h2>
+<br>
+<table border="1" style="width:300px">
+    <tr>
+        <th>id</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>email</th>
+        <th>age</th>
+    </tr>
+
+    <tr>
+        <td><p th:text="${currentUser.getId()}">ID</p></td>
+        <td><p th:text="${currentUser.getName()}">ID</p></td>
+        <td><p th:text="${currentUser.getSurname()}">ID</p></td>
+        <td><p th:text="${currentUser.getEmail()}">ID</p></td>
+        <td><p th:text="${currentUser.getAge()}">ID</p></td>
+    </tr>
+    </div>
+
+</table>
+
+<br>
+
+<input type="button" value="Logout" onClick='location.href="/logout"'>
+
+</body>
+</html>
