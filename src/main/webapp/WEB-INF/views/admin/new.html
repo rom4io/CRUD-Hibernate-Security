@@ -30,6 +30,7 @@
     <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">errors</div>
     <input type="submit" value="Create!"/>
 </form>
-
+<br>
+<div th:replace="footer :: footer"/>
 </body>
 </html>
